@@ -1,32 +1,25 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext';
-import MouseFollower from './components/MouseFollower';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Services from './pages/Services';
-import Booking from './pages/Booking';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Footer from './components/Footer';
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import Home from './pages/Home'
+import Hajj from './pages/Hajj'
+import Umrah from './pages/Umrah'
+import Contact from './pages/Contact'
 
-function App() {
+export default function App() {
   return (
-    <ThemeProvider>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
-        <MouseFollower />
-        <Navbar />
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/booking" element={<Booking />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/hac" element={<Hajj />} />
+          <Route path="/umre" element={<Umrah />} />
+          <Route path="/iletisim" element={<Contact />} />
         </Routes>
-        <Footer />
-      </div>
-    </ThemeProvider>
-  );
+      </main>
+      <Footer />
+    </div>
+  )
 }
-
-export default App;

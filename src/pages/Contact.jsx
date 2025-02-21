@@ -1,155 +1,169 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaWhatsapp } from 'react-icons/fa';
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa'
+import Button from '../components/Button'
 
-const Contact = () => {
+export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    message: ''
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }))
+  }
+
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // Form gönderme işlemi
-    alert('Mesajınız başarıyla gönderildi!');
-  };
+    e.preventDefault()
+    // Form submission logic
+    console.log(formData)
+  }
+
+  const contactInfo = [
+    {
+      icon: <FaPhone className="text-islamic-500 text-3xl" />,
+      title: "Telefon",
+      info: "+998 XX XXX XX XX"
+    },
+    {
+      icon: <FaEnvelope className="text-islamic-500 text-3xl" />,
+      title: "E-pochta",
+      info: "info@mussafoturizm.uz"
+    },
+    {
+      icon: <FaMapMarkerAlt className="text-islamic-500 text-3xl" />,
+      title: "Manzil",
+      info: "[Sizning manzil]"
+    }
+  ]
 
   return (
-    <div className="min-h-screen bg-gray-50 py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">İletişim</h1>
-          <p className="text-xl text-gray-600">Sizden haber almayı bekliyoruz</p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white rounded-xl shadow-lg p-8"
+    <div className="pt-20">
+      <section 
+        className="relative h-[50vh] flex items-center justify-center text-white bg-cover bg-center"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(/images/contact-hero.jpg)'
+        }}
+      >
+        <div className="text-center px-4 z-10">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-5xl md:text-6xl font-display font-bold mb-6 gradient-text"
           >
-            <h2 className="text-2xl font-semibold mb-6">İletişim Bilgileri</h2>
-            
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <FaMapMarkerAlt className="text-primary-600 text-2xl mr-4 mt-1" />
-                <div>
-                  <h3 className="font-semibold">Adres</h3>
-                  <p className="text-gray-600">
-                    Bağdat Caddesi No:123<br />
-                    Kadıköy, İstanbul
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <FaPhone className="text-primary-600 text-2xl mr-4 mt-1" />
-                <div>
-                  <h3 className="font-semibold">Telefon</h3>
-                  <p className="text-gray-600">+90 555 123 4567</p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <FaEnvelope className="text-primary-600 text-2xl mr-4 mt-1" />
-                <div>
-                  <h3 className="font-semibold">E-posta</h3>
-                  <p className="text-gray-600">info@randevupro.com</p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <FaWhatsapp className="text-primary-600 text-2xl mr-4 mt-1" />
-                <div>
-                  <h3 className="font-semibold">WhatsApp</h3>
-                  <p className="text-gray-600">+90 555 123 4567</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8">
-              <h3 className="font-semibold mb-4">Çalışma Saatleri</h3>
-              <div className="space-y-2 text-gray-600">
-                <p>Pazartesi - Cumartesi: 09:00 - 20:00</p>
-                <p>Pazar: 10:00 - 18:00</p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white rounded-xl shadow-lg p-8"
+            Biz bilan bog'laning
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-xl md:text-2xl mb-8 text-corporate-50"
           >
-            <h2 className="text-2xl font-semibold mb-6">Bize Mesaj Gönderin</h2>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-gray-700 mb-2">Ad Soyad</label>
-                <input
-                  type="text"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-2">E-posta</label>
-                <input
-                  type="email"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-2">Konu</label>
-                <input
-                  type="text"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-2">Mesajınız</label>
-                <textarea
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 h-32"
-                  required
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full btn-primary"
-              >
-                Mesaj Gönder
-              </button>
-            </form>
-          </motion.div>
+            Har qanday savolga javob berishga tayyormiz
+          </motion.p>
         </div>
+      </section>
 
-        {/* Map Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-16"
-        >
-          <div className="bg-gray-200 rounded-xl h-96">
-            {/* Burada Google Maps veya başka bir harita servisi entegre edilebilir */}
-            <div className="w-full h-full rounded-xl flex items-center justify-center text-gray-600">
-              Harita burada görüntülenecek
-            </div>
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="bg-corporate-50 p-8 rounded-xl shadow-corporate"
+            >
+              <h2 className="text-2xl font-semibold mb-6 text-islamic-600">Xabar Yuborish</h2>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label className="block text-corporate-700 mb-2">Ism Familiya</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-corporate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-islamic-300"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-corporate-700 mb-2">Telefon Raqam</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-corporate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-islamic-300"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-corporate-700 mb-2">Xabar</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-corporate-200 rounded-lg h-32 focus:outline-none focus:ring-2 focus:ring-islamic-300"
+                    required
+                  ></textarea>
+                </div>
+                <Button 
+                  type="submit" 
+                  variant="primary" 
+                  className="w-full"
+                  icon={<FaPaperPlane />}
+                >
+                  Yuborish
+                </Button>
+              </form>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="space-y-8"
+            >
+              <h2 className="text-3xl font-semibold text-islamic-600">Biz bilan bog'laning</h2>
+              <p className="text-corporate-700">
+                Har qanday savolga javob berishga tayyormiz. Sizning qulayligingiz uchun turli kanallarda mavjudmiz.
+              </p>
+
+              <div className="space-y-6">
+                {contactInfo.map((contact, index) => (
+                  <div 
+                    key={index} 
+                    className="bg-corporate-50 p-6 rounded-xl shadow-corporate flex items-center space-x-4 card-hover"
+                  >
+                    <div>{contact.icon}</div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-islamic-600">{contact.title}</h3>
+                      <p className="text-corporate-700">{contact.info}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-islamic-50 p-6 rounded-xl">
+                <h3 className="text-xl font-semibold text-islamic-700 mb-4">Ish Vaqti</h3>
+                <p className="text-corporate-700">
+                  Dushanba - Juma: 09:00 - 18:00
+                  <br />
+                  Shanba: 10:00 - 14:00
+                  <br />
+                  Yakshanba: Dam olish kuni
+                </p>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </section>
     </div>
-  );
-};
-
-export default Contact;
+  )
+}

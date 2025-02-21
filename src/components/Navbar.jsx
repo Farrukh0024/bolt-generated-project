@@ -1,106 +1,102 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { HiMenu, HiX, HiMoon, HiSun } from 'react-icons/hi';
-import { useTheme } from '../context/ThemeContext';
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { FaMosque, FaBars, FaTimes } from 'react-icons/fa'
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { darkMode, toggleDarkMode } = useTheme();
+export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
-  const navLinks = [
-    { path: '/', text: 'Asosiy' },
-    { path: '/services', text: 'Xizmatlar' },
-    { path: '/booking', text: 'Band qilish' },
-    { path: '/about', text: 'Biz haqimizda' },
-    { path: '/contact', text: 'Aloqa' }
-  ];
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const navItems = [
+    { name: 'Bosh Sahifa', path: '/' },
+    { name: 'Haj', path: '/hac' },
+    { name: 'Umra', path: '/umre' },
+    { name: 'Aloqa', path: '/iletisim' }
+  ]
 
   return (
-    <motion.nav 
+    <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="sticky top-0 z-50 glassmorphism"
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-white shadow-lg' : 'bg-transparent'
+      }`}
     >
-      <div className="container-custom">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 
-            bg-clip-text text-transparent hover:opacity-80 transition-opacity">
-            BeautyPro
-          </Link>
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center h-20">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center space-x-2"
+          >
+            <Link to="/" className="flex items-center space-x-2">
+              <FaMosque className={`text-2xl ${isScrolled ? 'text-primary-600' : 'text-white'}`} />
+              <span className={`text-xl font-bold ${isScrolled ? 'text-primary-600' : 'text-white'}`}>
+                Mussafo Turizm
+              </span>
+            </Link>
+          </motion.div>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className="nav-link"
+          <div className="hidden md:flex space-x-8">
+            {navItems.map((item, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {link.text}
-              </Link>
+                <Link
+                  to={item.path}
+                  className={`font-medium transition-colors duration-300 ${
+                    isScrolled ? 'text-primary-700 hover:text-primary-900' : 'text-white hover:text-primary-100'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </motion.div>
             ))}
-            <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 
-              transition duration-300"
-            >
-              {darkMode ? (
-                <HiSun className="text-2xl text-yellow-500" />
-              ) : (
-                <HiMoon className="text-2xl text-gray-600" />
-              )}
-            </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-4">
-            <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-            >
-              {darkMode ? (
-                <HiSun className="text-xl text-yellow-500" />
-              ) : (
-                <HiMoon className="text-xl text-gray-600" />
-              )}
-            </button>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-600 dark:text-gray-200 hover:text-indigo-600 
-              dark:hover:text-indigo-400 transition-colors"
-            >
-              {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
-            </button>
-          </div>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? 
+              <FaTimes className={`text-2xl ${isScrolled ? 'text-primary-600' : 'text-white'}`} /> :
+              <FaBars className={`text-2xl ${isScrolled ? 'text-primary-600' : 'text-white'}`} />
+            }
+          </motion.button>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="md:hidden border-t border-gray-200 dark:border-gray-700"
+          initial={false}
+          animate={isOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
+          className="md:hidden overflow-hidden bg-white rounded-lg shadow-lg mt-2"
         >
-          <div className="container-custom py-4 space-y-2">
-            {navLinks.map((link) => (
+          {navItems.map((item, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ backgroundColor: '#f3f4f6' }}
+            >
               <Link
-                key={link.path}
-                to={link.path}
-                className="block py-2 nav-link"
+                to={item.path}
+                className="block px-4 py-3 text-primary-700 hover:text-primary-900"
                 onClick={() => setIsOpen(false)}
               >
-                {link.text}
+                {item.name}
               </Link>
-            ))}
-          </div>
+            </motion.div>
+          ))}
         </motion.div>
-      )}
+      </div>
     </motion.nav>
-  );
-};
-
-export default Navbar;
+  )
+}

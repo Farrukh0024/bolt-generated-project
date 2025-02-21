@@ -2,55 +2,56 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
         primary: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
+          50: '#e6f3e6',
+          100: '#c2e0c2',
+          200: '#9acc9a',
+          300: '#71b871',
+          400: '#4da64d',
+          500: '#2b932b', // Main green
+          600: '#268326',
+          700: '#1f721f',
+          800: '#196219',
+          900: '#105210'
         },
         secondary: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
+          50: '#f0f4f8', // Light background
+          100: '#d9e2ec',
+          200: '#bcccdc',
+          300: '#9fb3c8',
+          400: '#829ab1',
+          500: '#627d98', // Gray text
+          600: '#486581',
+          700: '#334e68',
+          800: '#243b53',
+          900: '#102a43'
+        },
+        islamic: {
+          50: '#e6f2f0',
+          100: '#c2e0d9',
+          200: '#9accc1',
+          300: '#71b8a8',
+          400: '#4da693',
+          500: '#2b937e', // Teal accent
+          600: '#268376',
+          700: '#1f726a',
+          800: '#19615a',
+          900: '#104c47'
         }
       },
-      animation: {
-        'float': 'float 3s ease-in-out infinite',
-        'shine': 'shine 1.5s ease-in-out infinite',
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(135deg, #2b932b 0%, #2b937e 100%)',
+        'gradient-overlay': 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6))'
       },
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-        shine: {
-          '0%': { backgroundPosition: '200% center' },
-          '100%': { backgroundPosition: '-200% center' },
-        },
-      },
-      backdropBlur: {
-        xs: '2px',
-      },
+      boxShadow: {
+        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        'medium': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
+      }
     },
   },
   plugins: [],
